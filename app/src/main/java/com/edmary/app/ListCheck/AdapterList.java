@@ -36,7 +36,11 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull AdapterList.MyViewHolder myViewHolder, int i) {
-        myViewHolder.bin(mDataClothesL.get(i));
+         Boolean stateCheck=false;
+         if(i>contChecked){
+             stateCheck =true;
+         }
+        myViewHolder.bin(mDataClothesL.get(i),stateCheck);
     }
 
     void setAdapterRemov(int posicion){
@@ -88,7 +92,8 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
             });
         }
 
-          void bin(String NameProducto){
+          void bin(String NameProducto, boolean check){
+            //checkB.setChecked(check);
             namePrd.setText(NameProducto);
         }
     }

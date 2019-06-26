@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ListCheck</string>
+    <string name="crear_un_producto">Crear un producto</string>
 
     <string-array name="list_prod">
         <item>Playera G rosa</item>
