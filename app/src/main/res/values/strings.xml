@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ListCheck</string>
+
+    <string-array name="list_prod">
+        <item>Playera G rosa</item>
+        <item>Pantalon M negro</item>
+        <item>Gorra M Negra-Militar</item>
+        <item>Gorra M Rosa-Lisa</item>
+        <item>Camisa M Programming</item>
+        <item>Short Ch Mesclilla</item>
+        <item>Blusa M Blanca-Vestir</item>
+    </string-array>
+</resources>
