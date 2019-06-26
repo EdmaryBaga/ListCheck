@@ -5,25 +5,25 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String clothes[] = getResources().getStringArray(R.array.list_prod);
+        String[] clothes = getResources().getStringArray(R.array.list_prod);
+        ArrayList<String> listaClothes = new ArrayList<>(Arrays.asList(clothes));
         for( String x: clothes){
             System.out.println(x);
         }
-        recyclerView = (RecyclerView) findViewById(R.id.lista_prod);
+        RecyclerView recyclerView = findViewById(R.id.lista_prod);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new AdapterList(clothes);
+        RecyclerView.Adapter mAdapter = new AdapterList(listaClothes);
         recyclerView.setAdapter(mAdapter);
 
     }
