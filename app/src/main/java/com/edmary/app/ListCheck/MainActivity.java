@@ -15,6 +15,7 @@ import com.edmary.app.ListCheck.models.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> listaClothes;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0){
@@ -64,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 listAux.add(new Product(nom, false));
                 listProd.clear();
                 listProd.addAll(listAux);
+                listProd.sort(new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
                 mAdapter.notifyDataSetChanged();
             }
         }

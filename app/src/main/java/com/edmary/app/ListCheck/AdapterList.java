@@ -20,25 +20,25 @@ import java.util.Comparator;
 
 class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
 
-    private  ArrayList<Product> mUDataClothes = new ArrayList<>();
-    private  ArrayList<Product> mDataClothesL;
-    private  ArrayList<Product> mCDataClothes = new ArrayList<>();
+    private ArrayList<Product> mUDataClothes = new ArrayList<>();
+    private ArrayList<Product> mDataClothesL;
+    private ArrayList<Product> mCDataClothes = new ArrayList<>();
 
 
-     @RequiresApi(api = Build.VERSION_CODES.N)
-     public AdapterList(ArrayList<Product> mDataClothes) {
-         //this.mD = mDataClothes;
-         this.mDataClothesL= mDataClothes;
-         creaListaTotal(mDataClothesL);
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public AdapterList(ArrayList<Product> mDataClothes) {
+        //this.mD = mDataClothes;
+        this.mDataClothesL = mDataClothes;
+        creaListaTotal(mDataClothesL);
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void creaListaTotal(ArrayList<Product>  lisP){
-        for (Product x : lisP){
-            if(x.getChek()){
+    public void creaListaTotal(ArrayList<Product> lisP) {
+        for (Product x : lisP) {
+            if (x.getChek()) {
                 mCDataClothes.add(x);
-            }
-            else{
+            } else {
                 mUDataClothes.add(x);
             }
         }
@@ -46,15 +46,15 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
         mDataClothesL.addAll(ordenaList(mUDataClothes));
         mDataClothesL.addAll(ordenaList(mCDataClothes));
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void actualizaListas(ArrayList<Product>  lisP){
-         mCDataClothes.clear();
-         mUDataClothes.clear();
-        for (Product x : lisP){
-            if(x.getChek()){
+    public void actualizaListas(ArrayList<Product> lisP) {
+        mCDataClothes.clear();
+        mUDataClothes.clear();
+        for (Product x : lisP) {
+            if (x.getChek()) {
                 mCDataClothes.add(x);
-            }
-            else{
+            } else {
                 mUDataClothes.add(x);
             }
         }
@@ -68,28 +68,28 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
 
         return new MyViewHolder(v);
     }
+
     @Override
     public void onBindViewHolder(@NonNull final AdapterList.MyViewHolder myViewHolder, final int position) {
 
-        myViewHolder.bin(mDataClothesL.get(position).getName(),mDataClothesL.get(position).getChek());
+        myViewHolder.bin(mDataClothesL.get(position).getName(), mDataClothesL.get(position).getChek());
 
         myViewHolder.mCheckB.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                if(mDataClothesL.get(position).getChek()){
+                if (mDataClothesL.get(position).getChek()) {
                     actualizaListas(mDataClothesL);
-                    Product item= mDataClothesL.get(position);
+                    Product item = mDataClothesL.get(position);
                     mCDataClothes.remove(item);
                     item.setChek(false);
                     mUDataClothes.add(item);
                     mDataClothesL.clear();
                     mDataClothesL.addAll(ordenaList(mUDataClothes));
                     mDataClothesL.addAll(ordenaList(mCDataClothes));
-                }
-                else {
+                } else {
                     actualizaListas(mDataClothesL);
-                    Product item= mDataClothesL.get(position);
+                    Product item = mDataClothesL.get(position);
                     mUDataClothes.remove(item);
                     item.setChek(true);
                     mCDataClothes.add(item);
@@ -103,19 +103,19 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static ArrayList<Product>  ordenaList(ArrayList<Product> list){
+    private static ArrayList<Product> ordenaList(ArrayList<Product> list) {
 
-         list.sort(new Comparator<Product>() {
-             @Override
-             public int compare(Product o1, Product o2) {
-                 return o1.getName().compareTo(o2.getName());
-             }
-         });
+        list.sort(new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
 
         return list;
     }
 
-    private void setAdapterRemov(int posicion){
+    private void setAdapterRemov(int posicion) {
         mDataClothesL.remove(posicion);
         notifyDataSetChanged();
     }
@@ -125,29 +125,30 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
         return mDataClothesL.size();
     }
 
-     class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         View Viewi;
         @SuppressLint("StaticFieldLeak")
-         TextView namePrd;
+        TextView namePrd;
         ImageView Delete;
         CheckBox mCheckB;
-       public MyViewHolder(View v) {
+
+        MyViewHolder(View v) {
             super(v);
-            Viewi= v;
+            Viewi = v;
             namePrd = v.findViewById(R.id.name_product);
-            Delete= v.findViewById(R.id.btn_delete);
+            Delete = v.findViewById(R.id.btn_delete);
             mCheckB = v.findViewById(R.id.checkbox_list_clothes);
             Delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String item= mDataClothesL.get(getAdapterPosition()).getName();
-                    Toast.makeText(v.getContext(), "Se elimino "+item, Toast.LENGTH_LONG).show();
+                    String item = mDataClothesL.get(getAdapterPosition()).getName();
+                    Toast.makeText(v.getContext(), "Se elimino " + item, Toast.LENGTH_LONG).show();
                     setAdapterRemov(getAdapterPosition());
                 }
             });
         }
 
-          void bin(String NameProducto, Boolean chek){
+        void bin(String NameProducto, Boolean chek) {
             namePrd.setText(NameProducto);
             mCheckB.setChecked(chek);
         }

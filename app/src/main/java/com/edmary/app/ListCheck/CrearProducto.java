@@ -25,6 +25,13 @@ public class CrearProducto extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CrearProducto.this, MainActivity.class);
                 nombreNuevo= namProd.getText().toString();
+                /*
+                * newAnimal = newAnimal.toLowerCase();
+newAnimal = newAnimal.substring(0, 1).toUpperCase() + newAnimal.substring(1);
+                * */
+
+                nombreNuevo = nombreNuevo.toLowerCase();
+                nombreNuevo= nombreNuevo.substring(0,1).toUpperCase()+ nombreNuevo.substring(1);
                 intent.putExtra("bandera", true);
                 intent.putExtra("nombre", nombreNuevo);
                 setResult(Activity.RESULT_OK, intent);
