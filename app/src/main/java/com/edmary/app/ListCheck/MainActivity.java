@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        ArrayList<Product> aux= new ArrayList<>();
         if (requestCode==0){
             if(resultCode== Activity.RESULT_OK){
                 String nom = data.getStringExtra("nombre");
@@ -70,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
                         return o1.getName().compareTo(o2.getName());
                     }
                 });
+
+                for(Product x: listProd){
+                    if(x.getChek()){
+                        aux.add(x);
+                    }
+                }
+                listProd.addAll(aux);
+                listProd.removeAll(aux);
+                listProd.addAll(aux);
+                aux.clear();
                 mAdapter.notifyDataSetChanged();
             }
         }
