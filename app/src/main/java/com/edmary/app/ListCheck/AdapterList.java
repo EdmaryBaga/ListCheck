@@ -21,9 +21,8 @@ import java.util.Comparator;
 class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
 
     private  ArrayList<Product> mUDataClothes = new ArrayList<>();
-    private  ArrayList<Product> mDataClothesL = new ArrayList<>();
+    private  ArrayList<Product> mDataClothesL;
     private  ArrayList<Product> mCDataClothes = new ArrayList<>();
-    private  ArrayList<Product> mD = new ArrayList<>();
 
 
      @RequiresApi(api = Build.VERSION_CODES.N)
@@ -47,6 +46,19 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
         mDataClothesL.addAll(ordenaList(mUDataClothes));
         mDataClothesL.addAll(ordenaList(mCDataClothes));
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void actualizaListas(ArrayList<Product>  lisP){
+         mCDataClothes.clear();
+         mUDataClothes.clear();
+        for (Product x : lisP){
+            if(x.getChek()){
+                mCDataClothes.add(x);
+            }
+            else{
+                mUDataClothes.add(x);
+            }
+        }
+    }
 
     @NonNull
     @Override
@@ -66,6 +78,7 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 if(mDataClothesL.get(position).getChek()){
+                    actualizaListas(mDataClothesL);
                     Product item= mDataClothesL.get(position);
                     mCDataClothes.remove(item);
                     item.setChek(false);
@@ -75,6 +88,7 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
                     mDataClothesL.addAll(ordenaList(mCDataClothes));
                 }
                 else {
+                    actualizaListas(mDataClothesL);
                     Product item= mDataClothesL.get(position);
                     mUDataClothes.remove(item);
                     item.setChek(true);
