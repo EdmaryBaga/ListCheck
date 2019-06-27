@@ -1,13 +1,14 @@
 package com.edmary.app.ListCheck;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +16,35 @@ import android.widget.Toast;
 import com.edmary.app.ListCheck.models.Product;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
 
-    private static ArrayList<Product> mDataClothesL;
-    private static ArrayList<String> mCheckedDataClothes = new ArrayList<>();
-    int contChecked =0;
+    private static ArrayList<Product> mUDataClothes = new ArrayList<>();
+    private static ArrayList<Product> mDataClothesL = new ArrayList<>();
+    private static ArrayList<Product> mCDataClothes = new ArrayList<>();
 
+     @RequiresApi(api = Build.VERSION_CODES.N)
      public AdapterList (ArrayList<Product> mDataClothes) {
-         mDataClothesL = mDataClothes;
+
+       /*  mDataClothes.sort(new Comparator<Product>() {
+             @Override
+             public int compare(Product o1, Product o2) {
+                 return o1.getName().compareTo(o2.getName());
+             }
+         });*/
+
+         for (Product x : mDataClothes){
+             if(x.getChek()){
+                 mCDataClothes.add(x);
+             }
+             else{
+                 mUDataClothes.add(x);
+             }
+         }
+         mDataClothesL.addAll(ordenaList(mUDataClothes));
+         mDataClothesL.addAll(ordenaList(mCDataClothes));
+         //mDataClothesL = mDataClothes;
     }
 
     @NonNull
@@ -40,33 +61,47 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
         myViewHolder.bin(mDataClothesL.get(position).getName(),mDataClothesL.get(position).getChek());
 
         myViewHolder.mCheckB.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 if(mDataClothesL.get(position).getChek()){
-                    mDataClothesL.get(position).setChek(false);
-                    //myViewHolder.mCheckB.setChecked(false);
+                    Product item= mDataClothesL.get(position);
+                    mCDataClothes.remove(item);
+                    item.setChek(false);
+                    mUDataClothes.add(item);
+                    mDataClothesL.clear();
+                    mDataClothesL.addAll(ordenaList(mUDataClothes));
+                    mDataClothesL.addAll(ordenaList(mCDataClothes));
                 }
                 else {
-                    mDataClothesL.get(position).setChek(true);
-                    //myViewHolder.mCheckB.setChecked(true);
                     Product item= mDataClothesL.get(position);
+                    mUDataClothes.remove(item);
                     item.setChek(true);
-                    mDataClothesL.remove(position);
-                    mDataClothesL.add(item);
-                    contChecked+=1;
+                    mCDataClothes.add(item);
+                    mDataClothesL.clear();
+                    mDataClothesL.addAll(ordenaList(mUDataClothes));
+                    mDataClothesL.addAll(ordenaList(mCDataClothes));
                 }
                 notifyDataSetChanged();
             }
         });
     }
 
-    private void setAdapterRemov(int posicion){
-        mDataClothesL.remove(posicion);
-        notifyDataSetChanged();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static ArrayList<Product>  ordenaList(ArrayList<Product> list){
+
+         list.sort(new Comparator<Product>() {
+             @Override
+             public int compare(Product o1, Product o2) {
+                 return o1.getName().compareTo(o2.getName());
+             }
+         });
+
+        return list;
     }
 
-    private void setAdapterCheck(Product item){
-        mDataClothesL.add(item);
+    private void setAdapterRemov(int posicion){
+        mDataClothesL.remove(posicion);
         notifyDataSetChanged();
     }
 
@@ -95,7 +130,6 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
                     setAdapterRemov(getAdapterPosition());
                 }
             });
-
         }
 
           void bin(String NameProducto, Boolean chek){
