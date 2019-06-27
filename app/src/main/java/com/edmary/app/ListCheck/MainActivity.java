@@ -10,9 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-
 import com.edmary.app.ListCheck.models.Product;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;

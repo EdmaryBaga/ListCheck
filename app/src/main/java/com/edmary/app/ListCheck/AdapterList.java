@@ -12,9 +12,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.edmary.app.ListCheck.models.Product;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -23,7 +21,6 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
     private ArrayList<Product> mUDataClothes = new ArrayList<>();
     private ArrayList<Product> mDataClothesL;
     private ArrayList<Product> mCDataClothes = new ArrayList<>();
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public AdapterList(ArrayList<Product> mDataClothes) {
