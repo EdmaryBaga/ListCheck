@@ -59,14 +59,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode==0){
             if(resultCode== Activity.RESULT_OK){
                 String nom = data.getStringExtra("nombre");
-                listProd.add(new Product(nom, false));
+                ArrayList<Product> listAux = new ArrayList<>();
+                listAux.addAll(listProd);
+                listAux.add(new Product(nom, false));
+                listProd.clear();
+                listProd.addAll(listAux);
                 mAdapter.notifyDataSetChanged();
             }
         }
     }
 }
-
-
-
-
-

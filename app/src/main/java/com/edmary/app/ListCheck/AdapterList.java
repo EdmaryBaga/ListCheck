@@ -20,31 +20,32 @@ import java.util.Comparator;
 
 class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
 
-    private static ArrayList<Product> mUDataClothes = new ArrayList<>();
-    private static ArrayList<Product> mDataClothesL = new ArrayList<>();
-    private static ArrayList<Product> mCDataClothes = new ArrayList<>();
+    private  ArrayList<Product> mUDataClothes = new ArrayList<>();
+    private  ArrayList<Product> mDataClothesL = new ArrayList<>();
+    private  ArrayList<Product> mCDataClothes = new ArrayList<>();
+    private  ArrayList<Product> mD = new ArrayList<>();
+
 
      @RequiresApi(api = Build.VERSION_CODES.N)
-     public AdapterList (ArrayList<Product> mDataClothes) {
+     public AdapterList(ArrayList<Product> mDataClothes) {
+         //this.mD = mDataClothes;
+         this.mDataClothesL= mDataClothes;
+         creaListaTotal(mDataClothesL);
 
-       /*  mDataClothes.sort(new Comparator<Product>() {
-             @Override
-             public int compare(Product o1, Product o2) {
-                 return o1.getName().compareTo(o2.getName());
-             }
-         });*/
-
-         for (Product x : mDataClothes){
-             if(x.getChek()){
-                 mCDataClothes.add(x);
-             }
-             else{
-                 mUDataClothes.add(x);
-             }
-         }
-         mDataClothesL.addAll(ordenaList(mUDataClothes));
-         mDataClothesL.addAll(ordenaList(mCDataClothes));
-         //mDataClothesL = mDataClothes;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void creaListaTotal(ArrayList<Product>  lisP){
+        for (Product x : lisP){
+            if(x.getChek()){
+                mCDataClothes.add(x);
+            }
+            else{
+                mUDataClothes.add(x);
+            }
+        }
+        mDataClothesL.clear();
+        mDataClothesL.addAll(ordenaList(mUDataClothes));
+        mDataClothesL.addAll(ordenaList(mCDataClothes));
     }
 
     @NonNull
@@ -88,7 +89,7 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static ArrayList<Product>  ordenaList(ArrayList<Product> list){
+    private static ArrayList<Product>  ordenaList(ArrayList<Product> list){
 
          list.sort(new Comparator<Product>() {
              @Override
@@ -116,7 +117,7 @@ class AdapterList extends RecyclerView.Adapter<AdapterList.MyViewHolder> {
          TextView namePrd;
         ImageView Delete;
         CheckBox mCheckB;
-       private MyViewHolder(View v) {
+       public MyViewHolder(View v) {
             super(v);
             Viewi= v;
             namePrd = v.findViewById(R.id.name_product);

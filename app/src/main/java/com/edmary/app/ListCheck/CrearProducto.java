@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
 public class CrearProducto extends AppCompatActivity {
     private EditText namProd;
     String nombreNuevo;
